@@ -32,27 +32,17 @@ func (h *PacienteHandler) Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusCreated)
-
-	if err := json.NewEncoder(w).Encode(paciente); err != nil {
-		http.Error(w, "erro ao gerar resposta", http.StatusInternalServerError)
-	}
+	JSONResponse(w, http.StatusCreated, paciente)
 }
 
 func (h *PacienteHandler) List(w http.ResponseWriter, r *http.Request) {
 	pacientes, err := h.service.List(r.Context())
 	if err != nil {
-		http.Error(w, "erro ao buscar pacientes", http.StatusInternalServerError)
+		ErrorResponseJSON(w, http.StatusInternalServerError, "erro ao buscar pacientes")
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-
-	if err := json.NewEncoder(w).Encode(pacientes); err != nil {
-		http.Error(w, "erro ao gerar resposta", http.StatusInternalServerError)
-	}
+	JSONResponse(w, http.StatusOK, pacientes)
 }
 
 func (h *PacienteHandler) GetByID(w http.ResponseWriter, r *http.Request) {
@@ -70,12 +60,7 @@ func (h *PacienteHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-
-	if err := json.NewEncoder(w).Encode(paciente); err != nil {
-		http.Error(w, "erro ao gerar resposta", http.StatusInternalServerError)
-	}
+	JSONResponse(w, http.StatusOK, paciente)
 }
 
 func (h *PacienteHandler) Update(w http.ResponseWriter, r *http.Request) {
@@ -83,7 +68,7 @@ func (h *PacienteHandler) Update(w http.ResponseWriter, r *http.Request) {
 
 	id, err := uuid.Parse(idParam)
 	if err != nil {
-		http.Error(w, "ID do paciente inválido", http.StatusBadRequest)
+		ErrorResponseJSON(w, http.StatusBadRequest, "ID do paciente inválido")
 		return
 	}
 
@@ -102,12 +87,7 @@ func (h *PacienteHandler) Update(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-
-	if err := json.NewEncoder(w).Encode(pacienteAtualizado); err != nil {
-		http.Error(w, "erro ao gerar resposta", http.StatusInternalServerError)
-	}
+	JSONResponse(w, http.StatusOK, pacienteAtualizado)
 }
 
 func (h *PacienteHandler) Delete(w http.ResponseWriter, r *http.Request) {
@@ -115,17 +95,17 @@ func (h *PacienteHandler) Delete(w http.ResponseWriter, r *http.Request) {
 
 	id, err := uuid.Parse(idParam)
 	if err != nil {
-		http.Error(w, "ID do paciente inválido", http.StatusBadRequest)
+		ErrorResponseJSON(w, http.StatusBadRequest, "ID do paciente inválido")
 		return
 	}
 
 	if err := h.service.Delete(r.Context(), id); err != nil {
 		if err.Error() == "paciente não encontrado" {
-			http.Error(w, err.Error(), http.StatusNotFound)
+			ErrorResponseJSON(w, http.StatusNotFound, "paciente não encontrado")
 			return
 		}
 
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		ErrorResponseJSON(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 
