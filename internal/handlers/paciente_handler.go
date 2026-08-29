@@ -2,11 +2,13 @@ package handlers
 
 import (
 	"encoding/json"
+	"net/http"
+	"errors"
 	"github.com/felipelima/nexia-health/api/internal/models"
+	"github.com/felipelima/nexia-health/api/internal/repositories"
 	"github.com/felipelima/nexia-health/api/internal/services"
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
-	"net/http"
 )
 
 type PacienteHandler struct {
@@ -100,7 +102,7 @@ func (h *PacienteHandler) Delete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := h.service.Delete(r.Context(), id); err != nil {
-		if err.Error() == "paciente não encontrado" {
+		if errors.Is(err, repositories.ErrPacienteNotFound) {
 			ErrorResponseJSON(w, http.StatusNotFound, "paciente não encontrado")
 			return
 		}

@@ -2,13 +2,14 @@ package repositories
 
 import (
 	"context"
+	"errors"
 	"fmt"
-
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgxpool"
-
 	"github.com/felipelima/nexia-health/api/internal/models"
 )
+
+var ErrPacienteNotFound = errors.New("Paciente não encontrado")
 
 type PacienteRepository struct {
 	db *pgxpool.Pool

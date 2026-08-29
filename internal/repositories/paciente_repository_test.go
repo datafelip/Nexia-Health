@@ -6,7 +6,6 @@ import (
 	"time"
 	"fmt"
 	"github.com/google/uuid"
-
 	"github.com/felipelima/nexia-health/api/configs"
 	"github.com/felipelima/nexia-health/api/internal/database"
 	"github.com/felipelima/nexia-health/api/internal/models"

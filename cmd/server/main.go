@@ -1,15 +1,14 @@
 package main
 
 import (
-	"log"
-	"net/http"
-
 	"github.com/felipelima/nexia-health/api/configs"
 	"github.com/felipelima/nexia-health/api/internal/database"
 	"github.com/felipelima/nexia-health/api/internal/handlers"
 	"github.com/felipelima/nexia-health/api/internal/repositories"
 	"github.com/felipelima/nexia-health/api/internal/routes"
 	"github.com/felipelima/nexia-health/api/internal/services"
+	"log"
+	"net/http"
 )
 
 func main() {
@@ -26,15 +25,18 @@ func main() {
 
 	// Repositories
 	pacienteRepository := repositories.NewPacienteRepository(db)
+	triagemRepository := repositories.NewTriagemRepository(db)
 
 	// Services
 	pacienteService := services.NewPacienteService(pacienteRepository)
+	triagemService := services.NewTriagemService(triagemRepository)
 
 	// Handlers
 	pacienteHandler := handlers.NewPacienteHandler(pacienteService)
+	triagemHandler := handlers.NewTriagemHandler(triagemService)
 
 	// Routes
-	router := routes.Setup(pacienteHandler)
+	router := routes.Setup(pacienteHandler, triagemHandler)
 
 	log.Println("Nexia Health API")
 	log.Println("PostgreSQL conectado com sucesso!")
