@@ -26,17 +26,44 @@ func main() {
 	// Repositories
 	pacienteRepository := repositories.NewPacienteRepository(db)
 	triagemRepository := repositories.NewTriagemRepository(db)
+	filaRepository := repositories.NewFilaRepository(db)
+	atendimentoRepository := repositories.NewAtendimentoRepository(db)
+	agendamentoRepository := repositories.NewAgendamentoRepository(db)
+	especialidadeRepository := repositories.NewEspecialidadeRepository(db)
+	setorRepository := repositories.NewSetorRepository(db)
+	usuarioRepository := repositories.NewUsuarioRepository(db)
 
 	// Services
 	pacienteService := services.NewPacienteService(pacienteRepository)
 	triagemService := services.NewTriagemService(triagemRepository)
+	filaService := services.NewFilaService(filaRepository)
+	atendimentoService := services.NewAtendimentoService(atendimentoRepository)
+	agendamentoService := services.NewAgendamentoService(agendamentoRepository)
+	especialidadeService := services.NewEspecialidadeService(especialidadeRepository)
+	setorService := services.NewSetorService(setorRepository)
+	usuarioService := services.NewUsuarioService(usuarioRepository)
 
 	// Handlers
 	pacienteHandler := handlers.NewPacienteHandler(pacienteService)
 	triagemHandler := handlers.NewTriagemHandler(triagemService)
+	filaHandler := handlers.NewFilaHandler(filaService)
+	atendimentoHandler := handlers.NewAtendimentoHandler(atendimentoService)
+	agendamentoHandler := handlers.NewAgendamentoHandler(agendamentoService)
+	especialidadeHandler := handlers.NewEspecialidadeHandler(especialidadeService)
+	setorHandler := handlers.NewSetorHandler(setorService)
+	usuarioHandler := handlers.NewUsuarioHandler(usuarioService)
 
 	// Routes
-	router := routes.Setup(pacienteHandler, triagemHandler)
+	router := routes.Setup(
+		pacienteHandler,
+		triagemHandler,
+		filaHandler,
+		atendimentoHandler,
+		agendamentoHandler,
+		especialidadeHandler,
+		setorHandler,
+		usuarioHandler,
+	)
 
 	log.Println("Nexia Health API")
 	log.Println("PostgreSQL conectado com sucesso!")

@@ -5,7 +5,6 @@ import (
 	"context"
 	"testing"
 	"time"
-
 	"github.com/felipelima/nexia-health/api/internal/models"
 	"github.com/google/uuid"
 )
