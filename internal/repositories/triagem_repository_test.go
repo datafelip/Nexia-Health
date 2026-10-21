@@ -19,7 +19,7 @@ func TestTriagemRepository_Create(t *testing.T) {
 
 	// IDs existentes no banco para teste
 	pacienteID := uuid.MustParse("3eb1ee54-4418-4dcf-8b47-0d6b2c07e5be")
-	profissionalID := uuid.MustParse("4fb4f364-219c-4494-b230-088105c850ed")
+	profissionalID := uuid.MustParse("fa84e1c6-9561-45ce-a865-eed542b0128a")
 
 	pressao := "120/80"
 	temperatura := 36.5

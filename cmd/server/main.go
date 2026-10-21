@@ -32,6 +32,9 @@ func main() {
 	especialidadeRepository := repositories.NewEspecialidadeRepository(db)
 	setorRepository := repositories.NewSetorRepository(db)
 	usuarioRepository := repositories.NewUsuarioRepository(db)
+	profissionalRepository := repositories.NewProfissionalRepository(db)
+	exameRepository := repositories.NewExameRepository(db)
+	solicitacaoExameRepository := repositories.NewSolicitacaoExameRepository(db)
 
 	// Services
 	pacienteService := services.NewPacienteService(pacienteRepository)
@@ -42,6 +45,9 @@ func main() {
 	especialidadeService := services.NewEspecialidadeService(especialidadeRepository)
 	setorService := services.NewSetorService(setorRepository)
 	usuarioService := services.NewUsuarioService(usuarioRepository)
+	profissionalService := services.NewProfissionalService(profissionalRepository)
+	exameService := services.NewExameService(exameRepository)
+	solicitacaoExameService := services.NewSolicitacaoExameService(solicitacaoExameRepository)
 
 	// Handlers
 	pacienteHandler := handlers.NewPacienteHandler(pacienteService)
@@ -52,6 +58,9 @@ func main() {
 	especialidadeHandler := handlers.NewEspecialidadeHandler(especialidadeService)
 	setorHandler := handlers.NewSetorHandler(setorService)
 	usuarioHandler := handlers.NewUsuarioHandler(usuarioService)
+	profissionalHandler := handlers.NewProfissionalHandler(profissionalService)
+	exameHandler := handlers.NewExameHandler(exameService)
+	solicitacaoExameHandler := handlers.NewSolicitacaoExameHandler(solicitacaoExameService)
 
 	// Routes
 	router := routes.Setup(
@@ -63,6 +72,9 @@ func main() {
 		especialidadeHandler,
 		setorHandler,
 		usuarioHandler,
+		profissionalHandler,
+		exameHandler,
+		solicitacaoExameHandler,
 	)
 
 	log.Println("Nexia Health API")

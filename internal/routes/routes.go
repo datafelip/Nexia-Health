@@ -15,6 +15,9 @@ func Setup(
 	especialidadeHandler *handlers.EspecialidadeHandler,
 	setorHandler *handlers.SetorHandler,
 	usuarioHandler *handlers.UsuarioHandler,
+	profissionalHandler *handlers.ProfissionalHandler,
+	exameHandler *handlers.ExameHandler,
+	solicitacaoExameHandler *handlers.SolicitacaoExameHandler,
 ) http.Handler {
 
 	r := chi.NewRouter()
@@ -94,6 +97,33 @@ func Setup(
 		r.Get("/{id}", usuarioHandler.GetByID)
 		r.Put("/{id}", usuarioHandler.Update)
 		r.Delete("/{id}", usuarioHandler.Delete)
+	})
+
+	// Profissionais
+	r.Route("/profissionais", func(r chi.Router) {
+		r.Post("/", profissionalHandler.Create)
+		r.Get("/", profissionalHandler.List)
+		r.Get("/{id}", profissionalHandler.GetByID)
+		r.Put("/{id}", profissionalHandler.Update)
+		r.Delete("/{id}", profissionalHandler.Delete)
+	})
+
+	// Exames
+	r.Route("/exames", func(r chi.Router) {
+		r.Post("/", exameHandler.Create)
+		r.Get("/", exameHandler.List)
+		r.Get("/{id}", exameHandler.GetByID)
+		r.Put("/{id}", exameHandler.Update)
+		r.Delete("/{id}", exameHandler.Delete)
+	})
+
+	// Solicitações de Exames
+	r.Route("/solicitacoes-exame", func(r chi.Router) {
+		r.Post("/", solicitacaoExameHandler.Create)
+		r.Get("/", solicitacaoExameHandler.List)
+		r.Get("/{id}", solicitacaoExameHandler.GetByID)
+		r.Put("/{id}", solicitacaoExameHandler.Update)
+		r.Delete("/{id}", solicitacaoExameHandler.Delete)
 	})
 	return r
 }
