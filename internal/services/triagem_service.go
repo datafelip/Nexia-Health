@@ -19,13 +19,23 @@ func NewTriagemService(repository *repositories.TriagemRepository) *TriagemServi
 	}
 }
 
-func (s *TriagemService) Create(ctx context.Context, triagem *models.Triagem) error {
+func (s *TriagemService) Create(
+	ctx context.Context,
+	triagem *models.Triagem,
+) error {
+	if triagem == nil {
+		return errors.New("dados da triagem são obrigatórios")
+	}
+
 	if err := validarTriagem(triagem); err != nil {
 		return err
 	}
 
-	if err := s.repository.Create(ctx, triagem); err != nil {
-		return fmt.Errorf("erro ao criar triagem: %w", err)
+	if err := s.repository.CreateComFila(ctx, triagem); err != nil {
+		return fmt.Errorf(
+			"erro ao criar triagem e inserir na fila: %w",
+			err,
+		)
 	}
 
 	return nil
@@ -69,4 +79,41 @@ func validarTriagem(triagem *models.Triagem) error {
 	}
 
 	return nil
+}
+
+func (s *TriagemService) Reclassificar(
+	ctx context.Context,
+	id uuid.UUID,
+	novaClassificacao models.ClassificacaoRisco,
+) (*models.Triagem, error) {
+
+	// Verifica se o ID informado é válido.
+	if id == uuid.Nil {
+		return nil, errors.New("ID da triagem é obrigatório")
+	}
+
+	// Valida as classificações aceitas pelo sistema.
+	switch novaClassificacao {
+	case models.Critico, models.Medio, models.Baixo:
+		// Classificação válida.
+	default:
+		return nil, errors.New(
+			"classificação de risco inválida: use Vermelho, Amarelo ou Verde",
+		)
+	}
+
+	// Executa a reclassificação e a reorganização da fila.
+	triagem, err := s.repository.ReclassificarComFila(
+		ctx,
+		id,
+		novaClassificacao,
+	)
+	if err != nil {
+		return nil, fmt.Errorf(
+			"erro ao reclassificar triagem: %w",
+			err,
+		)
+	}
+
+	return triagem, nil
 }

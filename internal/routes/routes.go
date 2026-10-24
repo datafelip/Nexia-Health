@@ -37,30 +37,86 @@ func Setup(
 	})
 
 	// Triagens
+
 	r.Route("/triagens", func(r chi.Router) {
 		r.Post("/", triagemHandler.Create)
 		r.Get("/", triagemHandler.List)
 		r.Get("/{id}", triagemHandler.GetByID)
-		r.Put("/{id}", triagemHandler.Update)
-		r.Delete("/{id}", triagemHandler.Delete)
+
+		r.Patch("/{id}/reclassificar", triagemHandler.Reclassificar)
+
+		r.Put("/{id}", func(w http.ResponseWriter, r *http.Request) {
+			handlers.ErrorResponseJSON(
+				w,
+				http.StatusMethodNotAllowed,
+				"A edição direta de triagens não é permitida",
+			)
+		})
+
+		r.Delete("/{id}", func(w http.ResponseWriter, r *http.Request) {
+			handlers.ErrorResponseJSON(
+				w,
+				http.StatusMethodNotAllowed,
+				"A exclusão de triagens não é permitida",
+			)
+		})
+
 	})
 
 	// Filas
 	r.Route("/filas", func(r chi.Router) {
-		r.Post("/", filaHandler.Create)
+		// Consultas permanecem disponíveis.
 		r.Get("/", filaHandler.List)
 		r.Get("/{id}", filaHandler.GetByID)
-		r.Put("/{id}", filaHandler.Update)
-		r.Delete("/{id}", filaHandler.Delete)
+
+		// Operação controlada pela regra de negócio.
+		r.Post("/chamar-proximo", filaHandler.ChamarProximo)
+
+		r.Patch("/{id}/cancelar", filaHandler.Cancelar)
+
+		// Criação, edição e exclusão direta ficam bloqueadas.
+		r.Post("/", func(w http.ResponseWriter, r *http.Request) {
+			handlers.ErrorResponseJSON(
+				w,
+				http.StatusMethodNotAllowed,
+				"A entrada na fila deve ocorrer pela triagem",
+			)
+		})
+
+		r.Put("/{id}", func(w http.ResponseWriter, r *http.Request) {
+			handlers.ErrorResponseJSON(
+				w,
+				http.StatusMethodNotAllowed,
+				"A fila é gerenciada pelas operações de atendimento",
+			)
+		})
+
+		r.Delete("/{id}", func(w http.ResponseWriter, r *http.Request) {
+			handlers.ErrorResponseJSON(
+				w,
+				http.StatusMethodNotAllowed,
+				"Exclusão direta da fila não permitida",
+			)
+		})
 	})
 
 	// Atendimentos
+
 	r.Route("/atendimentos", func(r chi.Router) {
 		r.Post("/", atendimentoHandler.Create)
 		r.Get("/", atendimentoHandler.List)
 		r.Get("/{id}", atendimentoHandler.GetByID)
+
+		// Finalização controlada com atualização da fila.
 		r.Put("/{id}", atendimentoHandler.Update)
-		r.Delete("/{id}", atendimentoHandler.Delete)
+
+		r.Delete("/{id}", func(w http.ResponseWriter, r *http.Request) {
+			handlers.ErrorResponseJSON(
+				w,
+				http.StatusMethodNotAllowed,
+				"A exclusão de atendimentos não é permitida",
+			)
+		})
 	})
 
 	// Agendamentos

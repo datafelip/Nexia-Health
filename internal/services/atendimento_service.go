@@ -18,7 +18,14 @@ func NewAtendimentoService(repository *repositories.AtendimentoRepository) *Aten
 	return &AtendimentoService{repository: repository}
 }
 
-func (s *AtendimentoService) Create(ctx context.Context, atendimento *models.Atendimento) error {
+func (s *AtendimentoService) Create(
+	ctx context.Context,
+	atendimento *models.Atendimento,
+) error {
+	if atendimento == nil {
+		return fmt.Errorf("dados do atendimento são obrigatórios")
+	}
+
 	if atendimento.PacienteID == uuid.Nil {
 		return fmt.Errorf("id_paciente é obrigatório")
 	}
@@ -43,11 +50,21 @@ func (s *AtendimentoService) Create(ctx context.Context, atendimento *models.Ate
 		atendimento.DataInicio = time.Now()
 	}
 
-	if atendimento.DataFim != nil && atendimento.DataFim.Before(atendimento.DataInicio) {
-		return fmt.Errorf("data_fim não pode ser anterior a data_inicio")
+	if atendimento.DataFim != nil {
+		return fmt.Errorf(
+			"um novo atendimento deve ser criado sem data_fim",
+		)
 	}
 
-	return s.repository.Create(ctx, atendimento)
+	if err := s.repository.CreateComFila(
+		ctx, atendimento,
+	); err != nil {
+		return fmt.Errorf(
+			"erro ao iniciar atendimento: %w", err,
+		)
+	}
+
+	return nil
 }
 
 func (s *AtendimentoService) GetByID(ctx context.Context, id uuid.UUID) (*models.Atendimento, error) {
@@ -55,25 +72,33 @@ func (s *AtendimentoService) GetByID(ctx context.Context, id uuid.UUID) (*models
 }
 
 func (s *AtendimentoService) List(ctx context.Context, filter repositories.AtendimentoFilter) ([]models.Atendimento, error) {
-if filter.DataInicio != nil && filter.DataFim != nil && filter.DataFim.Before(*filter.DataInicio) {
-return nil, fmt.Errorf("data_fim do filtro não pode ser anterior a data_inicio")
-    }
+	if filter.DataInicio != nil && filter.DataFim != nil && filter.DataFim.Before(*filter.DataInicio) {
+		return nil, fmt.Errorf("data_fim do filtro não pode ser anterior a data_inicio")
+	}
 
-return s.repository.List(ctx, filter)
+	return s.repository.List(ctx, filter)
 }
 
-func (s *AtendimentoService) Update(ctx context.Context, atendimento *models.Atendimento) (*models.Atendimento, error) {
-	atual, err := s.repository.GetByID(ctx, atendimento.ID)
-	if err != nil {
-		return nil, err
+func (s *AtendimentoService) Update(
+	ctx context.Context,
+	atendimento *models.Atendimento,
+) (*models.Atendimento, error) {
+	if atendimento == nil {
+		return nil, fmt.Errorf("dados do atendimento são obrigatórios")
 	}
 
-	if atendimento.DataFim != nil && atendimento.DataFim.Before(atual.DataInicio) {
-		return nil, fmt.Errorf("data_fim não pode ser anterior a data_inicio")
+	if atendimento.DataFim == nil {
+		return nil, fmt.Errorf(
+			"data_fim é obrigatória para finalizar o atendimento",
+		)
 	}
 
-	if err := s.repository.Update(ctx, atendimento); err != nil {
-		return nil, err
+	if err := s.repository.FinalizarComFila(
+		ctx, atendimento,
+	); err != nil {
+		return nil, fmt.Errorf(
+			"erro ao finalizar atendimento: %w", err,
+		)
 	}
 
 	return s.repository.GetByID(ctx, atendimento.ID)

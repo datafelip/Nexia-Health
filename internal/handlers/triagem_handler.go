@@ -123,3 +123,70 @@ func (h *TriagemHandler) Delete(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusNoContent)
 }
+
+func (h *TriagemHandler) Reclassificar(
+	w http.ResponseWriter,
+	r *http.Request,
+) {
+	// Obtém o ID da triagem pela URL.
+	idParam := chi.URLParam(r, "id")
+
+	id, err := uuid.Parse(idParam)
+	if err != nil {
+		ErrorResponseJSON(
+			w,
+			http.StatusBadRequest,
+			"ID da triagem inválido",
+		)
+		return
+	}
+
+	// Recebe somente a nova classificação.
+	var request struct {
+		ClassificacaoRisco models.ClassificacaoRisco `json:"classificacao_risco"`
+	}
+
+	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+		ErrorResponseJSON(
+			w,
+			http.StatusBadRequest,
+			"JSON inválido",
+		)
+		return
+	}
+
+	// Solicita a reclassificação ao Service.
+	triagem, err := h.service.Reclassificar(
+		r.Context(),
+		id,
+		request.ClassificacaoRisco,
+	)
+
+	if err != nil {
+		switch {
+		case errors.Is(err, repositories.ErrTriagemNotFound):
+			ErrorResponseJSON(
+				w,
+				http.StatusNotFound,
+				"triagem não encontrada",
+			)
+
+		case errors.Is(err, repositories.ErrTriagemNaoAguardando):
+			ErrorResponseJSON(
+				w,
+				http.StatusConflict,
+				"somente pacientes aguardando podem ser reclassificados",
+			)
+
+		default:
+			ErrorResponseJSON(
+				w,
+				http.StatusBadRequest,
+				err.Error(),
+			)
+		}
+		return
+	}
+
+	JSONResponse(w, http.StatusOK, triagem)
+}
