@@ -1,14 +1,53 @@
-# Environment
+# React / Node
+node_modules/
+dist/
+
+# Variáveis de ambiente
 .env
+.env.*
+!.env.example
 
 # Go
 bin/
 *.exe
+*.test
+*.out
+
+# Python
+.venv/
+venv/
+__pycache__/
+.pytest_cache/
+*.pyc
 
 # IDE
 .vscode/
 .idea/
 
-# OS
+# Sistema operacional
 .DS_Store
 
+# Logs
+*.log
+
+# Backups
+.git-backup-api/
+.git-raiz-antigo/
+backups/
+
+# Arquivos locais
+iniciar_servidores.txt
+
+# Arquivos temporários
+*.tmp
+*.bak
+*.sql~
+*.swp
+*.swo
+
+# Arquivos sensíveis
+*.pem
+*.key
+
+# Arquivos temporarios do LibreOffice
+.~lock.*#

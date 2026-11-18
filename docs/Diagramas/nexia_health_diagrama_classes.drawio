@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mxfile host="app.diagrams.net" modified="2026-10-12T03:30:00.000Z" agent="ChatGPT" version="25.0.3" type="device">
+  <diagram id="nexia-classes" name="Diagrama de Classes">
+    <mxGraphModel dx="1800" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1250" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="&lt;div style=&quot;font-size:22px;font-weight:bold;color:#0f172a&quot;&gt;NEXIA HEALTH — Diagrama UML de Classes&lt;/div&gt;&lt;div style=&quot;font-size:12px;color:#475569&quot;&gt;Modelo conceitual das entidades do domínio e seus relacionamentos&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1710" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="paciente" value="&lt;div style=&quot;background-color:#dbeafe;padding:8px;font-weight:bold;font-size:14px;text-align:center;border-bottom:1px solid #94a3b8&quot;&gt;Paciente&lt;/div&gt;&lt;div style=&quot;padding:7px 9px;font-size:11px;line-height:1.4&quot;&gt;+ id_paciente: UUID {PK}&lt;br&gt;+ nome: string&lt;br&gt;+ cpf: string&lt;br&gt;+ cartao_sus: string&lt;br&gt;+ data_nascimento: date&lt;br&gt;+ telefone: string&lt;br&gt;+ endereco: string&lt;br&gt;+ data_cadastro: timestamp&lt;/div&gt;&lt;hr style=&quot;border:0;border-top:1px solid #cbd5e1&quot;&gt;&lt;div style=&quot;padding:6px 9px;font-size:11px;color:#475569&quot;&gt;+ cadastrar()&lt;br&gt;+ atualizar()&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=0;fillColor=#ffffff;strokeColor=#64748b;strokeWidth=1.5;fontColor=#0f172a;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="130" width="300" height="230" as="geometry"/>
+        </mxCell>
+        <mxCell id="usuario" value="&lt;div style=&quot;background-color:#ede9fe;padding:8px;font-weight:bold;font-size:14px;text-align:center;border-bottom:1px solid #94a3b8&quot;&gt;Usuario&lt;/div&gt;&lt;div style=&quot;padding:7px 9px;font-size:11px;line-height:1.4&quot;&gt;+ id_usuario: UUID {PK}&lt;br&gt;+ nome: string&lt;br&gt;+ email: string {UNIQUE}&lt;br&gt;+ senha_hash: string&lt;br&gt;+ perfil: enum&lt;br&gt;+ status: enum&lt;br&gt;+ ultimo_login: timestamp?&lt;br&gt;+ created_at: timestamp&lt;br&gt;+ updated_at: timestamp&lt;/div&gt;&lt;hr style=&quot;border:0;border-top:1px solid #cbd5e1&quot;&gt;&lt;div style=&quot;padding:6px 9px;font-size:11px;color:#475569&quot;&gt;+ autenticar()&lt;br&gt;+ alterarPerfil()&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=0;fillColor=#ffffff;strokeColor=#64748b;strokeWidth=1.5;fontColor=#0f172a;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="430" y="130" width="300" height="230" as="geometry"/>
+        </mxCell>
+        <mxCell id="profissional" value="&lt;div style=&quot;background-color:#dbeafe;padding:8px;font-weight:bold;font-size:14px;text-align:center;border-bottom:1px solid #94a3b8&quot;&gt;Profissional&lt;/div&gt;&lt;div style=&quot;padding:7px 9px;font-size:11px;line-height:1.4&quot;&gt;+ id_profissional: UUID {PK}&lt;br&gt;+ id_usuario: UUID {FK?}&lt;br&gt;+ id_especialidade: UUID {FK}&lt;br&gt;+ id_setor: UUID {FK}&lt;br&gt;+ registro_conselho: string&lt;br&gt;+ status: string&lt;/div&gt;&lt;hr style=&quot;border:0;border-top:1px solid #cbd5e1&quot;&gt;&lt;div style=&quot;padding:6px 9px;font-size:11px;color:#475569&quot;&gt;+ cadastrar()&lt;br&gt;+ atualizarVinculos()&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=0;fillColor=#ffffff;strokeColor=#64748b;strokeWidth=1.5;fontColor=#0f172a;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="800" y="130" width="300" height="200" as="geometry"/>
+        </mxCell>
+        <mxCell id="especialidade" value="&lt;div style=&quot;background-color:#dbeafe;padding:8px;font-weight:bold;font-size:14px;text-align:center;border-bottom:1px solid #94a3b8&quot;&gt;Especialidade&lt;/div&gt;&lt;div style=&quot;padding:7px 9px;font-size:11px;line-height:1.4&quot;&gt;+ id_especialidade: UUID {PK}&lt;br&gt;+ nome: string&lt;br&gt;+ descricao: string?&lt;/div&gt;&lt;hr style=&quot;border:0;border-top:1px solid #cbd5e1&quot;&gt;&lt;div style=&quot;padding:6px 9px;font-size:11px;color:#475569&quot;&gt;+ cadastrar()&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=0;fillColor=#ffffff;strokeColor=#64748b;strokeWidth=1.5;fontColor=#0f172a;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="130" width="250" height="155" as="geometry"/>
+        </mxCell>
+        <mxCell id="setor" value="&lt;div style=&quot;background-color:#dbeafe;padding:8px;font-weight:bold;font-size:14px;text-align:center;border-bottom:1px solid #94a3b8&quot;&gt;Setor&lt;/div&gt;&lt;div style=&quot;padding:7px 9px;font-size:11px;line-height:1.4&quot;&gt;+ id_setor: UUID {PK}&lt;br&gt;+ nome: string&lt;br&gt;+ descricao: string?&lt;br&gt;+ status: string?&lt;/div&gt;&lt;hr style=&quot;border:0;border-top:1px solid #cbd5e1&quot;&gt;&lt;div style=&quot;padding:6px 9px;font-size:11px;color:#475569&quot;&gt;+ cadastrar()&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=0;fillColor=#ffffff;strokeColor=#64748b;strokeWidth=1.5;fontColor=#0f172a;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1480" y="130" width="250" height="155" as="geometry"/>
+        </mxCell>
+        <mxCell id="triagem" value="&lt;div style=&quot;background-color:#ffedd5;padding:8px;font-weight:bold;font-size:14px;text-align:center;border-bottom:1px solid #94a3b8&quot;&gt;Triagem&lt;/div&gt;&lt;div style=&quot;padding:7px 9px;font-size:11px;line-height:1.4&quot;&gt;+ id_triagem: UUID {PK}&lt;br&gt;+ id_paciente: UUID {FK}&lt;br&gt;+ id_profissional: UUID {FK}&lt;br&gt;+ classificacao_risco: enum&lt;br&gt;+ pressao_arterial: string?&lt;br&gt;+ temperatura: decimal?&lt;br&gt;+ frequencia_cardiaca: int?&lt;br&gt;+ observacoes: string?&lt;br&gt;+ data_triagem: timestamp&lt;/div&gt;&lt;hr style=&quot;border:0;border-top:1px solid #cbd5e1&quot;&gt;&lt;div style=&quot;padding:6px 9px;font-size:11px;color:#475569&quot;&gt;+ registrarSinaisVitais()&lt;br&gt;+ classificarRisco()&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=0;fillColor=#ffffff;strokeColor=#64748b;strokeWidth=1.5;fontColor=#0f172a;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="455" width="300" height="230" as="geometry"/>
+        </mxCell>
+        <mxCell id="fila" value="&lt;div style=&quot;background-color:#ffedd5;padding:8px;font-weight:bold;font-size:14px;text-align:center;border-bottom:1px solid #94a3b8&quot;&gt;Fila&lt;/div&gt;&lt;div style=&quot;padding:7px 9px;font-size:11px;line-height:1.4&quot;&gt;+ id_fila: UUID {PK}&lt;br&gt;+ id_paciente: UUID {FK}&lt;br&gt;+ id_triagem: UUID {FK}&lt;br&gt;+ status: enum&lt;br&gt;+ data_entrada: timestamp&lt;br&gt;+ data_chamada: timestamp?&lt;br&gt;+ previsao_espera_min: int?&lt;/div&gt;&lt;hr style=&quot;border:0;border-top:1px solid #cbd5e1&quot;&gt;&lt;div style=&quot;padding:6px 9px;font-size:11px;color:#475569&quot;&gt;+ inserirPaciente()&lt;br&gt;+ reorganizar()&lt;br&gt;+ chamarPaciente()&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=0;fillColor=#ffffff;strokeColor=#64748b;strokeWidth=1.5;fontColor=#0f172a;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="430" y="455" width="300" height="215" as="geometry"/>
+        </mxCell>
+        <mxCell id="agendamento" value="&lt;div style=&quot;background-color:#d1fae5;padding:8px;font-weight:bold;font-size:14px;text-align:center;border-bottom:1px solid #94a3b8&quot;&gt;Agendamento&lt;/div&gt;&lt;div style=&quot;padding:7px 9px;font-size:11px;line-height:1.4&quot;&gt;+ id_agendamento: UUID {PK}&lt;br&gt;+ id_paciente: UUID {FK}&lt;br&gt;+ tipo: enum&lt;br&gt;+ data_hora: timestamp&lt;br&gt;+ status: enum&lt;br&gt;+ observacoes: string?&lt;/div&gt;&lt;hr style=&quot;border:0;border-top:1px solid #cbd5e1&quot;&gt;&lt;div style=&quot;padding:6px 9px;font-size:11px;color:#475569&quot;&gt;+ agendar()&lt;br&gt;+ reagendar()&lt;br&gt;+ cancelar()&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=0;fillColor=#ffffff;strokeColor=#64748b;strokeWidth=1.5;fontColor=#0f172a;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="800" y="455" width="300" height="200" as="geometry"/>
+        </mxCell>
+        <mxCell id="atendimento" value="&lt;div style=&quot;background-color:#d1fae5;padding:8px;font-weight:bold;font-size:14px;text-align:center;border-bottom:1px solid #94a3b8&quot;&gt;Atendimento&lt;/div&gt;&lt;div style=&quot;padding:7px 9px;font-size:11px;line-height:1.4&quot;&gt;+ id_atendimento: UUID {PK}&lt;br&gt;+ id_paciente: UUID {FK}&lt;br&gt;+ id_profissional: UUID {FK}&lt;br&gt;+ id_triagem: UUID {FK?}&lt;br&gt;+ id_agendamento: UUID {FK?}&lt;br&gt;+ id_especialidade: UUID {FK?}&lt;br&gt;+ id_setor: UUID {FK?}&lt;br&gt;+ data_inicio: timestamp&lt;br&gt;+ data_fim: timestamp?&lt;br&gt;+ descricao: text?&lt;br&gt;+ status: enum&lt;/div&gt;&lt;hr style=&quot;border:0;border-top:1px solid #cbd5e1&quot;&gt;&lt;div style=&quot;padding:6px 9px;font-size:11px;color:#475569&quot;&gt;+ iniciar()&lt;br&gt;+ registrarEvolucao()&lt;br&gt;+ finalizar()&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=0;fillColor=#ffffff;strokeColor=#64748b;strokeWidth=1.5;fontColor=#0f172a;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="455" width="300" height="240" as="geometry"/>
+        </mxCell>
+        <mxCell id="exame" value="&lt;div style=&quot;background-color:#fce7f3;padding:8px;font-weight:bold;font-size:14px;text-align:center;border-bottom:1px solid #94a3b8&quot;&gt;Exame&lt;/div&gt;&lt;div style=&quot;padding:7px 9px;font-size:11px;line-height:1.4&quot;&gt;+ id_exame: UUID {PK}&lt;br&gt;+ nome: string&lt;br&gt;+ descricao: string?&lt;br&gt;+ preparo: string?&lt;/div&gt;&lt;hr style=&quot;border:0;border-top:1px solid #cbd5e1&quot;&gt;&lt;div style=&quot;padding:6px 9px;font-size:11px;color:#475569&quot;&gt;+ cadastrar()&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=0;fillColor=#ffffff;strokeColor=#64748b;strokeWidth=1.5;fontColor=#0f172a;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="790" width="300" height="165" as="geometry"/>
+        </mxCell>
+        <mxCell id="solicitacao" value="&lt;div style=&quot;background-color:#fce7f3;padding:8px;font-weight:bold;font-size:14px;text-align:center;border-bottom:1px solid #94a3b8&quot;&gt;SolicitacaoExame&lt;/div&gt;&lt;div style=&quot;padding:7px 9px;font-size:11px;line-height:1.4&quot;&gt;+ id_solicitacao_exame: UUID {PK}&lt;br&gt;+ id_atendimento: UUID {FK}&lt;br&gt;+ id_exame: UUID {FK}&lt;br&gt;+ data_solicitacao: timestamp&lt;br&gt;+ status: enum&lt;br&gt;+ resultado: text?&lt;/div&gt;&lt;hr style=&quot;border:0;border-top:1px solid #cbd5e1&quot;&gt;&lt;div style=&quot;padding:6px 9px;font-size:11px;color:#475569&quot;&gt;+ solicitar()&lt;br&gt;+ registrarResultado()&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=0;fillColor=#ffffff;strokeColor=#64748b;strokeWidth=1.5;fontColor=#0f172a;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="430" y="790" width="300" height="195" as="geometry"/>
+        </mxCell>
+        <mxCell id="previsao" value="&lt;div style=&quot;background-color:#f1f5f9;padding:8px;font-weight:bold;font-size:14px;text-align:center;border-bottom:1px solid #94a3b8&quot;&gt;PrevisaoEspera (serviço)&lt;/div&gt;&lt;div style=&quot;padding:7px 9px;font-size:11px;line-height:1.4&quot;&gt;+ minutos_estimados: int&lt;br&gt;+ calculado_em: timestamp&lt;br&gt;+ versao_modelo: string?&lt;/div&gt;&lt;hr style=&quot;border:0;border-top:1px solid #cbd5e1&quot;&gt;&lt;div style=&quot;padding:6px 9px;font-size:11px;color:#475569&quot;&gt;+ estimarTempo(fila)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=0;fillColor=#ffffff;strokeColor=#64748b;strokeWidth=1.5;fontColor=#0f172a;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="800" y="790" width="300" height="170" as="geometry"/>
+        </mxCell>
+        <mxCell id="relatorio" value="&lt;div style=&quot;background-color:#f1f5f9;padding:8px;font-weight:bold;font-size:14px;text-align:center;border-bottom:1px solid #94a3b8&quot;&gt;RelatorioGerencial (serviço)&lt;/div&gt;&lt;div style=&quot;padding:7px 9px;font-size:11px;line-height:1.4&quot;&gt;+ periodo_inicio: date&lt;br&gt;+ periodo_fim: date&lt;br&gt;+ filtros: map?&lt;/div&gt;&lt;hr style=&quot;border:0;border-top:1px solid #cbd5e1&quot;&gt;&lt;div style=&quot;padding:6px 9px;font-size:11px;color:#475569&quot;&gt;+ gerarIndicadores()&lt;br&gt;+ gerarRelatorioAtendimentos()&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=0;fillColor=#ffffff;strokeColor=#64748b;strokeWidth=1.5;fontColor=#0f172a;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="790" width="300" height="165" as="geometry"/>
+        </mxCell>
+        <mxCell id="r1" value="1 — 0..*" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748b;strokeWidth=1.5;endArrow=none;startArrow=none;fontSize=11;fontColor=#334155;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="paciente" target="triagem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="r2" value="1 — 0..*" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748b;strokeWidth=1.5;endArrow=none;startArrow=none;fontSize=11;fontColor=#334155;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="profissional" target="triagem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="r3" value="1 — 0..*" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748b;strokeWidth=1.5;endArrow=none;startArrow=none;fontSize=11;fontColor=#334155;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="paciente" target="fila">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="r4" value="1 — 0..1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748b;strokeWidth=1.5;endArrow=none;startArrow=none;fontSize=11;fontColor=#334155;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="triagem" target="fila">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="r5" value="1 — 0..*" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748b;strokeWidth=1.5;endArrow=none;startArrow=none;fontSize=11;fontColor=#334155;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="paciente" target="atendimento">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="r6" value="1 — 0..*" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748b;strokeWidth=1.5;endArrow=none;startArrow=none;fontSize=11;fontColor=#334155;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="profissional" target="atendimento">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="r7" value="0..1 — 0..*" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748b;strokeWidth=1.5;endArrow=none;startArrow=none;fontSize=11;fontColor=#334155;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="triagem" target="atendimento">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="r8" value="0..1 — 0..1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748b;strokeWidth=1.5;endArrow=none;startArrow=none;fontSize=11;fontColor=#334155;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="agendamento" target="atendimento">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="r9" value="1 — 0..1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748b;strokeWidth=1.5;endArrow=none;startArrow=none;fontSize=11;fontColor=#334155;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="usuario" target="profissional">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="r10" value="1 — 0..*" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748b;strokeWidth=1.5;endArrow=none;startArrow=none;fontSize=11;fontColor=#334155;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="especialidade" target="profissional">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="r11" value="1 — 0..*" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748b;strokeWidth=1.5;endArrow=none;startArrow=none;fontSize=11;fontColor=#334155;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="setor" target="profissional">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="r12" value="1 — 0..*" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748b;strokeWidth=1.5;endArrow=none;startArrow=none;fontSize=11;fontColor=#334155;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="especialidade" target="atendimento">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="r13" value="1 — 0..*" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748b;strokeWidth=1.5;endArrow=none;startArrow=none;fontSize=11;fontColor=#334155;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="setor" target="atendimento">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="r14" value="1 — 0..*" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748b;strokeWidth=1.5;endArrow=none;startArrow=none;fontSize=11;fontColor=#334155;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="atendimento" target="solicitacao">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="r15" value="1 — 0..*" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748b;strokeWidth=1.5;endArrow=none;startArrow=none;fontSize=11;fontColor=#334155;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="exame" target="solicitacao">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="r16" value="usa estimativa" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#94a3b8;strokeWidth=1.5;endArrow=none;startArrow=none;fontSize=11;fontColor=#334155;labelBackgroundColor=#ffffff;dashed=1;dashPattern=6 4;endArrow=open;" edge="1" parent="1" source="fila" target="previsao">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="r17" value="fonte de dados" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#94a3b8;strokeWidth=1.5;endArrow=none;startArrow=none;fontSize=11;fontColor=#334155;labelBackgroundColor=#ffffff;dashed=1;dashPattern=6 4;endArrow=open;" edge="1" parent="1" source="atendimento" target="relatorio">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="note" value="&lt;b&gt;Observações para validação&lt;/b&gt;&lt;br&gt;• Diagrama conceitual; não representa os pacotes Handler/Service/Repository.&lt;br&gt;• Atributos de várias entidades precisam ser conferidos no schema PostgreSQL atual.&lt;br&gt;• Usuario–Profissional e algumas FKs em Atendimento são provisórios.&lt;br&gt;• PrevisaoEspera e RelatorioGerencial são serviços conceituais, não necessariamente tabelas." style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=10;fillColor=#fff7ed;strokeColor=#fdba74;fontColor=#7c2d12;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1480" y="455" width="250" height="390" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend" value="&lt;b&gt;Legenda&lt;/b&gt;&lt;br&gt;PK = chave primária · FK = chave estrangeira · UUID = identificador único&lt;br&gt;Atributos e cardinalidades ainda não confirmados devem ser validados contra os modelos Go e o schema PostgreSQL." style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=10;fillColor=#f8fafc;strokeColor=#cbd5e1;fontColor=#334155;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1040" width="1690" height="75" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

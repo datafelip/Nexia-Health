@@ -1,0 +1,49 @@
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Go
+bin/
+*.exe
+*.test
+*.out
+
+# React / Node
+node_modules/
+dist/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# Logs
+*.log
+
+# Backups de repositórios e banco de dados
+.git-backup-api/
+.git-raiz-antigo/
+backups/
+
+# Arquivos locais e temporários do Nexia Health
+iniciar_servidores.txt
+*.sql~
+*.swp
+*.swo
+*.tmp
+*.bak
+
+# Ambientes virtuais Python
+.venv/
+venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+
+# Arquivos de configuração sensíveis
+*.pem
+*.key

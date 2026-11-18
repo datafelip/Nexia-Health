@@ -1,0 +1,24 @@
+{
+    "nome": "Nexia AI - Previsão de Demanda",
+    "modelo": "RandomForestRegressor",
+    "origem_dados": "sinteticos",
+    "total_registros": 1035,
+    "registros_treinamento": 828,
+    "registros_teste": 207,
+    "features": [
+        "dia_semana",
+        "mes",
+        "fim_semana",
+        "feriado"
+    ],
+    "metricas_modelo": {
+        "mae": 4.1645,
+        "rmse": 5.3782,
+        "r2": 0.6602
+    },
+    "metricas_referencia": {
+        "mae": 7.7829,
+        "rmse": 9.4722,
+        "r2": -0.054
+    }
+}
